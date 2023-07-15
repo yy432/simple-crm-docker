@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../../6m-software-3.10-spring-maven"
+		},
+		{
+			"path": "../../../../../../../../6m-software-3.11-spring-components-and-annotations"
+		},
+		{
+			"path": "../../../../../../.."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic",
+		"java.project.sourcePaths": [
+			""
+		]
+	}
+}

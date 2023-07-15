@@ -1,0 +1,136 @@
+@RequestParam vs @PathVariable
+
+RequestParam is to extract query values
+http://localhost/customers?name=Tony
+
+page=1&result=50
+
+public void handlerMethod(@RequestParam String name) {
+    ...
+}
+
+PathVariable is to extract data from URI
+http://localhost/customers/12312312312312
+
+public void handlerMethod(@PathVariable String name) {
+    ...
+}
+
+For REST API we use PathVariable
+
+ResponseEntity Class - allows us to return data and a status code
+
+>>>>>>>
+3.11
+
+In a typical Java app, you have different types of objects.
+Some are objects are like the Customer data class - data object.
+
+Some classes don't hold data - it just contains our functionalities. How many instances do we need? Just one.
+
+
+What is happening here is that we are defining an Interface type, CustomerService.
+
+When Spring Boot encounters a CustomerSerivce type dependency in the CustomerController, it looks for a bean that implements the CustomerService interface.
+
+Since CustomerSerivceImpl implements CustomerSrvice, it will inject an instance of CustomerServiceImpl into customerService dependency of CustomerController.
+
+
+@Service
+EnhancedCustomerServiceImpl implements CustomerService
+
+SPring Boot will use this one inside CustomerController.
+
+
+Loose coupling.
+
+MVC
+- migrated code from Controller only into Repository and Service
+- moved our business logic into Service
+- data store operations moved into Repository
+- Controller just manages the Request
+
+Used Interface for our Service Layer
+- defined abstract methods for our Service implementation classes to implement
+
+Custom Exception
+- defnied an unchecked Exception
+- threw Exception at our service Layer
+- caught exception at our controller layer
+
+
+1. Create Customer (Postman)
+2. Controller will get the Request
+   - catches 
+3. Controller will call the Service method, customerService.createCustomer()
+4. Service will call the Repository method, customerRepository.createCustomer()
+   - might throw an error if id is not found
+5. Repository will create the Customer in the ArrayList
+
+
+
+
+
+
+3.12 - 2023.06.01
+JPA with H2
+
+What is H2?
+- In memory relational database
+- lightweight
+- for quick prototyping
+- useful for demo a sample backend app as your portfolio
+- note data is lost when you restart the application
+
+What is JPA and Hibernate?
+
+Java Persistence API - specificattion for persisting, reading and managing data from your Java objects to your DB.
+
+Object Relational Mapper (ORM)
+
+Install H2 and JPA
+
+Controller -> Service -> Repository -> DB
+
+Step 1: Annotate Customer class with @Entity, also defined column names
+Step 2: Defined the primary key, which is id, and made it autogenerate.
+Step 3: Setup Repository
+
+We need a repo to interact with SQL DB.
+
+Step 4: Update our Service layer
+
+
+Customers
+Interactions
+
+private int id;
+private String remarks;
+private LocalDate interactionDate; "2023-06-01"
+
+Create the Entity, Repository, Service, Controller
+Test CRUD endpoints
+
+Step 1: Create the Entity (Remember to generate our Getters and Setters)
+Step 2: Create InteractionRepository interface 
+Step 3: Create our InteractionService interface
+Step 4: Create our InteractionServiceImpl implementation
+Step 5: Create our interaction controller
+
+Test your endpoints and check your H2 DB if it is updated
+
+
+
+MANY TO ONE RELATIONSHIP (UNIDIRECTIONAL)
+
+
+MANY students work on ONE project
+MANY products are sold by ONE store
+MANY interactions are made with ONE customer
+
+How to we know who the interactions belong to? We use a Foreign Key -> It references the Primary Key in the Customer table.
+PK of customer identifies every customer
+PK of interaction identifies each interaction
+FK of interaction identitfies the PK of the customer
+
+How do we tell JPA?
